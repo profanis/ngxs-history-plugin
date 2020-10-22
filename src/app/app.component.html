@@ -1,8 +1,13 @@
 <ul>
-  <li *ngFor="let item of items$ | async; trackBy: idx; let idx = index">
-    <input type="text" [ngModel]="item.title" (blur)="changeDescription($event.target.value, item.order)">
+  <li *ngFor="let item of todoService.items$ | async; trackBy: idx; let idx = index">
+    <input type="text" [ngModel]="item.title" (ngModelChange)="todoService.changeDescription($event, item.order)">
   </li>
   <li>
-    <input type="text" [(ngModel)]="newTitle"> <button type="button" (click)="add()">Add</button>
+    <input type="text" [(ngModel)]="newTitle"> <button type="button" (click)="todoService.add(newTitle)">Add</button>
   </li>
 </ul>
+
+
+<pre>
+  {{todoService.items$ | async | json}}
+</pre>
