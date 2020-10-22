@@ -1,5 +1,5 @@
 <ul>
-  <li *ngFor="let item of todoService.items$ | async; trackBy: idx; let idx = index">
+  <li *ngFor="let item of todoService.items; trackBy: idx; let idx = index">
     <input type="text" [ngModel]="item.title" (ngModelChange)="todoService.changeDescription($event, item.order)">
   </li>
   <li>
