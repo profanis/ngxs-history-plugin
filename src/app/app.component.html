@@ -1,13 +1,19 @@
-<ul>
-  <li *ngFor="let item of todoService.items; trackBy: idx; let idx = index">
-    <input type="text" [ngModel]="item.title" (ngModelChange)="todoService.changeDescription($event, item.order)">
-  </li>
-  <li>
-    <input type="text" [(ngModel)]="newTitle"> <button type="button" (click)="todoService.add(newTitle)">Add</button>
-  </li>
-</ul>
+<div class="m-5">
 
+  <div class="form-inline">
+    <input type="email" class="form-control" [(ngModel)]="newTitle" placeholder="Add item...">
+    <button type="button" class="btn btn-primary ml-1" (click)="add(newTitle)">Add</button>
+  </div>
 
-<pre>
-  {{todoService.items$ | async | json}}
-</pre>
+  <div class="form-inline">
+
+    <ul class="list-group list-group-flush mt-3">
+      <li *ngFor="let item of (items$ | async); trackBy: idx; let idx = index"
+          class="list-group-item m-0 p-0">
+        <input type="email" class="form-control mb-1" [ngModel]="item.title" (ngModelChange)="changeDescription($event, item.order)">
+      </li>
+    </ul>
+
+  </div>
+
+</div>
