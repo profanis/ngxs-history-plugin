@@ -7,6 +7,7 @@
 
   <div class="form-inline">
 
+    <button (click)="undo()">Undo</button>
     <ul class="list-group list-group-flush mt-3">
       <li *ngFor="let item of (items$ | async); trackBy: idx; let idx = index"
           class="list-group-item m-0 p-0">

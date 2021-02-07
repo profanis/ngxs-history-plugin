@@ -1,20 +1,31 @@
 import { Injectable } from '@angular/core';
-import { Action, State, StateContext } from '@ngxs/store';
+import { Action, State, StateContext, StateOperator } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { CareTaker } from '../careTaker.service';
+import { Originator } from '../oroginator';
 import { TodoStateModel } from './todo-state.model';
-import { AddTodo, ChangeStatus, RemoveTodo, UpdateTodo } from './todo.actions';
+import { AddTodo, ChangeStatus, RemoveTodo, UpdateTodo, Undo } from './todo.actions';
+
+const DEFAULT_STATE = {items: []}
+
 
 @State<TodoStateModel>({
   name: 'todo',
-  defaults: {
-    items: []
-  }
+  defaults: DEFAULT_STATE
 })
 @Injectable()
 export class TodoState {
+  caretaker: CareTaker<TodoStateModel>;
+
+  constructor() {
+    const originator = new Originator(DEFAULT_STATE);
+    this.caretaker = new CareTaker(originator);
+  }
+
 
   @Action(AddTodo)
   addTodo(ctx: StateContext<TodoStateModel>, action: AddTodo) {
-    const state = ctx.getState()
+    const state = ctx.getState();
 
     const newItem = {
       order: state.items.length + 1,
@@ -30,6 +41,9 @@ export class TodoState {
         newItem
       ]
     });
+
+    this.caretaker.backup(ctx.getState());
+    this.caretaker.showHistory();
   }
 
   @Action(RemoveTodo)
@@ -45,6 +59,9 @@ export class TodoState {
         ...state.items.slice(index+1),
       ]
     });
+
+    this.caretaker.backup(ctx.getState());
+    this.caretaker.showHistory();
   }
 
   @Action(UpdateTodo)
@@ -52,6 +69,8 @@ export class TodoState {
     const state = ctx.getState()
 
     const index = state.items.findIndex(it => it.order === action.order)
+
+    this.caretaker.backup(state);
 
     ctx.setState({
       ...state,
@@ -61,6 +80,9 @@ export class TodoState {
         ...state.items.slice(index+1),
       ]
     });
+
+    this.caretaker.backup(ctx.getState());
+    this.caretaker.showHistory();
   }
 
 
@@ -78,6 +100,22 @@ export class TodoState {
         {...state.items[index], isActive: action.status},
         ...state.items.slice(index+1),
       ]
+    });
+
+    this.caretaker.backup(ctx.getState());
+    this.caretaker.showHistory();
+  }
+
+  @Action(Undo)
+  undo(ctx: StateContext<TodoStateModel>) {
+    const state = ctx.getState()
+
+    debugger
+    const restoredState = this.caretaker.undo()
+
+    ctx.setState({
+      ...state,
+      ...restoredState
     });
   }
 
