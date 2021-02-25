@@ -21,7 +21,9 @@ import { TodoState } from './store/todo.state';
     NgxsModule.forRoot([TodoState], {
       developmentMode: !environment.production
     }),
-    NgxsMementoModule.forRoot(),
+    NgxsMementoModule.forRoot({
+      stateNames: ['todo']
+    }),
     NgxsDispatchPluginModule.forRoot(),
     FormsModule
   ],

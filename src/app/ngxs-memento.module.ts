@@ -3,11 +3,8 @@ import { NgxsPlugin, NGXS_PLUGINS } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { CareTaker } from './careTaker.service';
 import { Memento } from './memento';
-import { TodoStateModel } from './store/todo-state.model';
 
-export function actionsToIgnore(): Set<string> {
-  return new Set(['initState', 'undo'])
-}
+export const actionsToIgnore = new Set(['initstate', 'undo'])
 
 export interface MementoPluginOptions {
   stateNames: string[]
@@ -23,26 +20,21 @@ export class MementoPlugin implements NgxsPlugin {
 
   constructor(
     @Inject(NGXS_MEMENTO_PLUGIN_OPTIONS) private options: MementoPluginOptions,
-    private careTaker: CareTaker<TodoStateModel>) {
+    private careTaker: CareTaker) {
     // this.caretaker = new CareTaker<TodoStateModel>();
   }
 
   handle(state, action, next) {
 
+    const stateName = Object.keys(state)[0]
     const actionName: string = action.constructor.name
+    const shoudHandleTheState = this.shouldHandleTheState(stateName)
+    const shouldIgnoreTheAction = actionsToIgnore.has(actionName.toLowerCase())
 
+    if (shoudHandleTheState && !shouldIgnoreTheAction) {
 
-    // const actionNames = new Set(Object.values(this.options.actionsToHandle).map((it: any) => it.name))
-    // console.log(actionNames.has(action))
-    console.log('Action started!', state, actionName);
-
-
-    // create new memento
-
-    debugger
-    if (!actionsToIgnore().has(actionName.toLowerCase())) {
       const memento = new Memento(state, action)
-      this.careTaker.backup(memento);
+      this.careTaker.backup(stateName, memento);
     }
 
 
@@ -53,8 +45,8 @@ export class MementoPlugin implements NgxsPlugin {
     );
   }
 
-  shouldHandleTheState(name: string) {
-    throw new Error('Implement')
+  shouldHandleTheState(stateName: string) {
+    return new Set(this.options.stateNames || []).has(stateName)
   }
 }
 

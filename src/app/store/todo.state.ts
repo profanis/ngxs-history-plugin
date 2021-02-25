@@ -13,12 +13,8 @@ const DEFAULT_STATE = { items: [] }
 })
 @Injectable()
 export class TodoState {
-  // caretaker: CareTaker<TodoStateModel>;
 
-  constructor(private careTaker: CareTaker<TodoStateModel>) {
-    // const originator = new Originator(DEFAULT_STATE);
-    // this.caretaker = new CareTaker(originator);
-  }
+  constructor(private careTaker: CareTaker) { }
 
 
   @Action(AddTodo)
@@ -31,9 +27,6 @@ export class TodoState {
       description: '',
       isActive: true
     }
-
-    // this.caretaker.backup(ctx.getState());
-    // this.caretaker.showHistory();
 
     ctx.setState({
       ...state,
@@ -52,9 +45,6 @@ export class TodoState {
 
     const index = state.items.findIndex(it => it.order === action.order)
 
-    // this.caretaker.backup(ctx.getState());
-    // this.caretaker.showHistory();
-
     ctx.setState({
       ...state,
       items: [
@@ -72,8 +62,6 @@ export class TodoState {
 
     const index = state.items.findIndex(it => it.order === action.order)
 
-    // this.caretaker.backup(state);
-
     ctx.setState({
       ...state,
       items: [
@@ -82,9 +70,6 @@ export class TodoState {
         ...state.items.slice(index + 1),
       ]
     });
-
-    // this.caretaker.backup(ctx.getState());
-    // this.caretaker.showHistory();
   }
 
 
@@ -103,17 +88,13 @@ export class TodoState {
         ...state.items.slice(index + 1),
       ]
     });
-
-    // this.caretaker.backup(ctx.getState());
-    // this.caretaker.showHistory();
   }
 
   @Action(Undo)
   undo(ctx: StateContext<TodoStateModel>) {
     const state = ctx.getState()
 
-    debugger
-    const restoredState: any = this.careTaker.undo()
+    const restoredState: any = this.careTaker.undo('todo')
 
     ctx.setState({
       ...state,

@@ -9,36 +9,26 @@ import { Memento } from './memento';
 @Injectable({
     providedIn: 'root'
 })
-export class CareTaker<T> {
-    private mementos: Memento<T>[] = [];
+export class CareTaker {
+    private mementos: Record<string, Memento[]> = {};
 
-    // private originator: Originator<T>;
-
-    // constructor(originator: Originator<T>) {
-    //     this.originator = originator;
-    // }
-
-    public backup(memento: Memento<T>): void {
+    public backup(stateName: string, memento: Memento): void {
         console.log('\nCaretaker: Saving Originator\'s state...');
-        this.mementos.push(memento);
+        this.mementos[stateName] ? this.mementos[stateName].push(memento) : this.mementos[stateName] = [memento];
     }
 
-    public undo(): T {
-        if (!this.mementos.length) {
+    public undo(stateName: string): any {
+        if (!this.mementos[stateName].length) {
             return;
         }
-        const memento = this.mementos.pop();
+        const memento = this.mementos[stateName].pop();
 
         return memento.state
-
-        // console.log(`Caretaker: Restoring state to: ${memento.getName()}`);
-        // return this.originator.restore(memento);
-
     }
 
-    public showHistory(): void {
+    public showHistory(stateName: string): void {
         console.log('Caretaker: Here\'s the list of mementos:');
-        for (const memento of this.mementos) {
+        for (const memento of this.mementos[stateName]) {
             console.log(memento.date, JSON.stringify(memento.state));
         }
     }

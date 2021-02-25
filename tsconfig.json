@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngxs-history-plugin": [
+        "dist/ngxs-history-plugin"
+      ],
+      "ngxs-history-plugin/*": [
+        "dist/ngxs-history-plugin/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

@@ -124,6 +124,41 @@
           }
         }
       }
+    },
+    "ngxs-history-plugin": {
+      "projectType": "library",
+      "root": "projects/ngxs-history-plugin",
+      "sourceRoot": "projects/ngxs-history-plugin/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngxs-history-plugin/tsconfig.lib.json",
+            "project": "projects/ngxs-history-plugin/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngxs-history-plugin/src/test.ts",
+            "tsConfig": "projects/ngxs-history-plugin/tsconfig.spec.json",
+            "karmaConfig": "projects/ngxs-history-plugin/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngxs-history-plugin/tsconfig.lib.json",
+              "projects/ngxs-history-plugin/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "ngxs-todo"
 }

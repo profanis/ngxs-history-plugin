@@ -5,14 +5,14 @@ import { Memento } from './memento';
  * defines a method for saving the state inside a memento and another method for
  * restoring the state from it.
  */
-export class Originator<T> {
+export class Originator {
     /**
      * For the sake of simplicity, the originator's state is stored inside a
      * single variable.
      */
-    private state: T;
+    private state: any;
 
-    constructor(state: T) {
+    constructor(state: any) {
         this.state = state;
         console.log(`Originator: My initial state is: ${JSON.stringify(state)}`);
     }
@@ -21,14 +21,14 @@ export class Originator<T> {
     /**
      * Saves the current state inside a memento.
      */
-    public save(state: T): Memento<T> {
+    public save(state: any): Memento {
         return new Memento(state, 'actionName');
     }
 
     /**
      * Restores the Originator's state from a memento object.
      */
-    public restore(memento: Memento<T>): T {
+    public restore(memento: Memento): any {
         this.state = memento.state;
         console.log(`Originator: My state has changed to: ${JSON.stringify(this.state)}`);
 
