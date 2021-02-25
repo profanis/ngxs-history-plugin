@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { CareTaker } from './careTaker.service';
-import { Originator } from './oroginator';
 import { TodoModel } from './store/todo-state.model';
-import { AddTodo, UpdateTodo, Undo } from './store/todo.actions';
+import { AddTodo, Undo, UpdateTodo } from './store/todo.actions';
 import { TodoSelectors } from './store/todo.selectors';
 
 @Component({
@@ -19,31 +17,10 @@ export class AppComponent implements OnInit {
 
   newTitle: string
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
-    // this.memntoService.main();
 
-    // const originator = new Originator('Super-duper-super-puper-super.');
-    // const caretaker = new CareTaker(originator);
-
-    // caretaker.backup();
-    // originator.doSomething();
-
-    // caretaker.backup();
-    // originator.doSomething();
-
-    // caretaker.backup();
-    // originator.doSomething();
-
-    // console.log('');
-    // caretaker.showHistory();
-
-    // console.log('\nClient: Now, let\'s rollback!\n');
-    // caretaker.undo();
-
-    // console.log('\nClient: Once more!\n');
-    // caretaker.undo();
   }
 
   add() {

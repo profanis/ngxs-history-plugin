@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Memento } from './memento';
+import { Memento } from './models/memento';
 
 /**
  * The Caretaker doesn't depend on the Concrete Memento class. Therefore, it
@@ -9,25 +9,24 @@ import { Memento } from './memento';
 @Injectable({
     providedIn: 'root'
 })
-export class CareTaker {
+export class NgxsHistoryService {
     private mementos: Record<string, Memento[]> = {};
 
-    public backup(stateName: string, memento: Memento): void {
+    backup(stateName: string, memento: Memento): void {
         console.log('\nCaretaker: Saving Originator\'s state...');
         this.mementos[stateName] ? this.mementos[stateName].push(memento) : this.mementos[stateName] = [memento];
     }
 
-    public undo(stateName: string): any {
+    undo(stateName: string): any {
         if (!this.mementos[stateName].length) {
-            return;
+            return [];
         }
         const memento = this.mementos[stateName].pop();
 
         return memento.state
     }
 
-    public showHistory(stateName: string): void {
-        console.log('Caretaker: Here\'s the list of mementos:');
+    showHistory(stateName: string): void {
         for (const memento of this.mementos[stateName]) {
             console.log(memento.date, JSON.stringify(memento.state));
         }

@@ -5,6 +5,7 @@ import { Memento } from './memento';
  * defines a method for saving the state inside a memento and another method for
  * restoring the state from it.
  */
+// TODO: I do not use this class at the moment
 export class Originator {
     /**
      * For the sake of simplicity, the originator's state is stored inside a

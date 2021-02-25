@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
-import { CareTaker } from '../careTaker.service';
+import { NgxsHistoryService } from 'projects/ngxs-history-plugin/src/public-api';
 import { TodoStateModel } from './todo-state.model';
 import { AddTodo, ChangeStatus, RemoveTodo, Undo, UpdateTodo } from './todo.actions';
 
@@ -14,7 +14,7 @@ const DEFAULT_STATE = { items: [] }
 @Injectable()
 export class TodoState {
 
-  constructor(private careTaker: CareTaker) { }
+  constructor(private ngxsHistoryService: NgxsHistoryService) { }
 
 
   @Action(AddTodo)
@@ -94,7 +94,7 @@ export class TodoState {
   undo(ctx: StateContext<TodoStateModel>) {
     const state = ctx.getState()
 
-    const restoredState: any = this.careTaker.undo('todo')
+    const restoredState: any = this.ngxsHistoryService.undo('todo')
 
     ctx.setState({
       ...state,
