@@ -5,7 +5,15 @@ import { CareTaker } from './careTaker.service';
 import { Memento } from './memento';
 import { TodoStateModel } from './store/todo-state.model';
 
-export const NGXS_MEMENTO_PLUGIN_OPTIONS = new InjectionToken('NGXS_MEMENTO_PLUGIN_OPTIONS');
+export function actionsToIgnore(): Set<string> {
+  return new Set(['initState', 'undo'])
+}
+
+export interface MementoPluginOptions {
+  stateNames: string[]
+}
+
+export const NGXS_MEMENTO_PLUGIN_OPTIONS = new InjectionToken<MementoPluginOptions>('NGXS_MEMENTO_PLUGIN_OPTIONS');
 
 
 @Injectable()
@@ -13,7 +21,9 @@ export class MementoPlugin implements NgxsPlugin {
 
   // caretaker: CareTaker<TodoStateModel>;
 
-  constructor(@Inject(NGXS_MEMENTO_PLUGIN_OPTIONS) private options: { actionsToHandle: [] }, private careTaker: CareTaker<TodoStateModel>) {
+  constructor(
+    @Inject(NGXS_MEMENTO_PLUGIN_OPTIONS) private options: MementoPluginOptions,
+    private careTaker: CareTaker<TodoStateModel>) {
     // this.caretaker = new CareTaker<TodoStateModel>();
   }
 
@@ -30,7 +40,7 @@ export class MementoPlugin implements NgxsPlugin {
     // create new memento
 
     debugger
-    if (actionName.toLowerCase() !== 'undo') {
+    if (!actionsToIgnore().has(actionName.toLowerCase())) {
       const memento = new Memento(state, action)
       this.careTaker.backup(memento);
     }
@@ -42,11 +52,15 @@ export class MementoPlugin implements NgxsPlugin {
       })
     );
   }
+
+  shouldHandleTheState(name: string) {
+    throw new Error('Implement')
+  }
 }
 
 @NgModule()
 export class NgxsMementoModule {
-  static forRoot(config?: any): ModuleWithProviders {
+  static forRoot(config?: MementoPluginOptions): ModuleWithProviders {
     return {
       ngModule: NgxsMementoModule,
       providers: [

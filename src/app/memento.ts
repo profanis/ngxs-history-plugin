@@ -5,14 +5,10 @@
  */
 export class Memento<T> {
 
-    private date: string;
+    public date: string;
 
     constructor(public state: T, public actionName: string) {
         this.date = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    }
-
-    public getDate(): string {
-        return this.date;
     }
 
 }

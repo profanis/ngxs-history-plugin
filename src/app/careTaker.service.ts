@@ -39,7 +39,7 @@ export class CareTaker<T> {
     public showHistory(): void {
         console.log('Caretaker: Here\'s the list of mementos:');
         for (const memento of this.mementos) {
-            console.log(memento.getDate(), JSON.stringify(memento.state));
+            console.log(memento.date, JSON.stringify(memento.state));
         }
     }
 }
