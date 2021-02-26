@@ -41,7 +41,7 @@ export class NgxHistoryPlugin implements NgxsPlugin {
 
 @NgModule()
 export class NgxsHistoryModule {
-  static forRoot(config?: PluginOptions): ModuleWithProviders {
+  static forRoot(config?: PluginOptions): ModuleWithProviders<NgxsHistoryModule> {
     return {
       ngModule: NgxsHistoryModule,
       providers: [
