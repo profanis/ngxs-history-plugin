@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Memento } from './models/memento';
 
 /**
@@ -10,18 +12,37 @@ import { Memento } from './models/memento';
     providedIn: 'root'
 })
 export class NgxsHistoryService {
-    private mementos: Record<string, Memento[]> = {};
+    private mementos = new BehaviorSubject<Record<string, Memento[]>>({});
 
     backup(stateName: string, memento: Memento): void {
-        console.log('\nCaretaker: Saving Originator\'s state...');
-        this.mementos[stateName] ? this.mementos[stateName].push(memento) : this.mementos[stateName] = [memento];
+
+        if (this.mementos.value[stateName]) {
+          this.mementos.next({
+            ...this.mementos.value,
+            [stateName]: [...this.mementos.value[stateName], memento]
+          })
+        } else {
+          this.mementos.next({
+            ...this.mementos.value,
+            [stateName]: [memento]
+          })
+        }
+
+
     }
 
     undo(stateName: string): any {
-        if (!this.mementos[stateName].length) {
+        if (!this.mementos.value[stateName].length) {
             return [];
         }
-        const memento = this.mementos[stateName].pop();
+
+        const lastItem = this.mementos.value[stateName].length - 1
+        const memento = this.mementos.value[stateName][lastItem]
+
+        this.mementos.next({
+          ...this.mementos.value,
+          [stateName]: [...this.mementos.value[stateName].slice(0, lastItem)]
+        })
 
         return memento.state
     }
@@ -31,4 +52,13 @@ export class NgxsHistoryService {
             console.log(memento.date, JSON.stringify(memento.state));
         }
     }
+
+    hasUndo$(stateName: string): Observable<boolean> {
+      return this.mementos.asObservable().pipe(
+        map(mementos => {
+          return mementos[stateName] && !!mementos[stateName].length
+        })
+      )
+    }
+
 }

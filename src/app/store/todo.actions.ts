@@ -17,7 +17,3 @@ export class ChangeStatus {
   static readonly type = '[Todo] Change status'
   constructor(public order: number, public title: string, public status: boolean) {}
 }
-
-export class Undo {
-  static readonly type = '[Todo] Undo'
-}

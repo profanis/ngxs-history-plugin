@@ -2,6 +2,7 @@ import { Inject, Injectable, InjectionToken, ModuleWithProviders, NgModule } fro
 import { NgxsPlugin, NGXS_PLUGINS } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { Memento } from './models/memento';
+import { NgxsHistoryUndo } from './models/ngxs-history.actions';
 import { PluginOptions } from './models/plugin-options';
 import { NgxsHistoryService } from './ngxs-history.service';
 export const NGXS_HISTORY_PLUGIN_OPTIONS = new InjectionToken<PluginOptions>('NGXS_HISTORY_PLUGIN_OPTIONS');
@@ -10,7 +11,7 @@ export const NGXS_HISTORY_PLUGIN_OPTIONS = new InjectionToken<PluginOptions>('NG
 @Injectable()
 export class NgxHistoryPlugin implements NgxsPlugin {
 
-  private readonly ACTIONS_TO_IGNORE = new Set(['initstate', 'undo'])
+  private readonly ACTIONS_TO_IGNORE = new Set(['initstate', NgxsHistoryUndo.name.toLowerCase()])
 
   constructor(
     @Inject(NGXS_HISTORY_PLUGIN_OPTIONS) private options: PluginOptions,
@@ -21,10 +22,10 @@ export class NgxHistoryPlugin implements NgxsPlugin {
 
     const stateName = Object.keys(state)[0]
     const actionName: string = action.constructor.name
-    const shoudHandleTheState = new Set(this.options.stateNames || []).has(stateName)
+    const shouldHandleTheState = new Set(this.options.stateNames || []).has(stateName)
     const shouldIgnoreTheAction = this.ACTIONS_TO_IGNORE.has(actionName.toLowerCase())
 
-    if (shoudHandleTheState && !shouldIgnoreTheAction) {
+    if (shouldHandleTheState && !shouldIgnoreTheAction) {
       const memento = new Memento(state, action)
       this.careTaker.backup(stateName, memento);
     }
