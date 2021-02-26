@@ -2,7 +2,7 @@
 
   <div class="form-inline">
     <input type="email" class="form-control" [(ngModel)]="newTitle" placeholder="Add item...">
-    <button type="button" class="btn btn-primary ml-1" (click)="add(newTitle)">Add</button>
+    <button type="button" class="btn btn-primary ml-1" (click)="add()">Add</button>
   </div>
 
   <div class="form-inline">
@@ -10,7 +10,7 @@
     <button (click)="undo()">Undo</button>
   --> {{hsaUndo$ | async}}
     <ul class="list-group list-group-flush mt-3">
-      <li *ngFor="let item of (items$ | async); trackBy: idx; let idx = index"
+      <li *ngFor="let item of (items$ | async); let idx = index;"
           class="list-group-item m-0 p-0">
         <input type="email" class="form-control mb-1" [ngModel]="item.title" (ngModelChange)="changeDescription($event, item.order)">
       </li>
