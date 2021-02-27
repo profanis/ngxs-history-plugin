@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { NgxsHistoryService, NgxsHistoryUndo } from 'projects/ngxs-history-plugin/src/public-api';
+import { NgxsHistoryService, NgxsHistoryUndo } from 'ngxs-history-plugin';
 import { Observable } from 'rxjs';
 import { TodoModel } from './store/todo-state.model';
 import { AddTodo, UpdateTodo } from './store/todo.actions';

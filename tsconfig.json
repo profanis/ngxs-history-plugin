@@ -24,6 +24,9 @@
       ],
       "ngxs-history-plugin/*": [
         "dist/ngxs-history-plugin/*"
+      ],
+      "@angular/*": [
+        "./node_modules/@angular/*"
       ]
     }
   },

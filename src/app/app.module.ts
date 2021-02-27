@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 import { NgxsModule } from '@ngxs/store';
-import { NgxsHistoryModule } from 'projects/ngxs-history-plugin/src/public-api';
+import { NgxsHistoryModule } from 'ngxs-history-plugin';
 import { environment } from './../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

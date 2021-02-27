@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
-import { NgxsHistoryService, NgxsHistoryUndo } from 'projects/ngxs-history-plugin/src/public-api';
+import { NgxsHistoryService, NgxsHistoryUndo } from 'ngxs-history-plugin';
 import { TodoStateModel } from './todo-state.model';
 import { AddTodo, ChangeStatus, RemoveTodo, UpdateTodo } from './todo.actions';
 
@@ -92,14 +92,14 @@ export class TodoState {
 
   @Action(NgxsHistoryUndo)
   undo(ctx: StateContext<TodoStateModel>) {
-    const state = ctx.getState()
+    // const state = ctx.getState()
 
-    const restoredState: any = this.ngxsHistoryService.undo('todo')
+    // const restoredState: any = this.ngxsHistoryService.undo('todo')
 
-    ctx.setState({
-      ...state,
-      ...restoredState.todo
-    });
+    // ctx.setState({
+    //   ...state,
+    //   ...restoredState.todo
+    // });
   }
 
 
