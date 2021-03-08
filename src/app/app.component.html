@@ -8,7 +8,6 @@
   <div class="form-inline">
 
     <button (click)="undo()">Undo</button>
-  --> {{hsaUndo$ | async}}
     <ul class="list-group list-group-flush mt-3">
       <li *ngFor="let item of (items$ | async); let idx = index;"
           class="list-group-item m-0 p-0">

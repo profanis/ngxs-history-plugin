@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { NgxsHistoryService, NgxsHistoryUndo } from 'ngxs-history-plugin';
+import { NgxsHistoryUndo } from 'ngxs-history-plugin';
 import { Observable } from 'rxjs';
 import { TodoModel } from './store/todo-state.model';
 import { AddTodo, UpdateTodo } from './store/todo.actions';
@@ -19,10 +19,9 @@ export class AppComponent implements OnInit {
   newTitle: string
   hsaUndo$: Observable<boolean>
 
-  constructor(private store: Store, public ngxsHistoryService: NgxsHistoryService) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.hsaUndo$ =  this.ngxsHistoryService.hasUndo$('todo')
 
   }
 
