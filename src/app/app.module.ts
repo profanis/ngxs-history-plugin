@@ -26,7 +26,7 @@ import { TodoState } from './store/todo.state';
       disabled: environment.production,
     }),
     NgxsHistoryModule.forRoot({
-      historyLength: 5
+      historyLength: 5,
     }),
     NgxsDispatchPluginModule.forRoot(),
     FormsModule
