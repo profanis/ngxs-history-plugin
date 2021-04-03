@@ -1,0 +1,12 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
+  "eslint.options": {
+    "extensions": [".ts", ".html"]
+  },
+  "eslint.alwaysShowStatus": true,
+  "eslint.validate": ["typescript"],
+  "eslint.workingDirectories": ["./d"]
+}

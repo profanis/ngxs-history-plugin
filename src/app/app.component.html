@@ -1,20 +1,7 @@
 <div class="m-5">
+  <h1>Todo</h1>
+  <app-todo></app-todo>
 
-  <div class="form-inline">
-    <input type="email" class="form-control" [(ngModel)]="newTitle" placeholder="Add item...">
-    <button type="button" class="btn btn-primary ml-1" (click)="add()">Add</button>
-  </div>
-
-  <div class="form-inline">
-
-    <button (click)="undo()">Undo</button>
-    <ul class="list-group list-group-flush mt-3">
-      <li *ngFor="let item of (items$ | async); let idx = index;"
-          class="list-group-item m-0 p-0">
-        <input type="email" class="form-control mb-1" [ngModel]="item.title" (ngModelChange)="changeDescription($event, item.order)">
-      </li>
-    </ul>
-
-  </div>
-
+  <h1>Shopping</h1>
+  <app-shopping></app-shopping>
 </div>
