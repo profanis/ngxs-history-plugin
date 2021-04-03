@@ -1,24 +1,90 @@
-# NgxsHistoryPlugin
+# ngxs-history-plugin
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.14.
+## How to use
 
-## Code scaffolding
+1. Install from NPM
+2. Import the module in the `app.module`
+3. Use the `undoable` decorator
+4. Dispatch the `undo` action
 
-Run `ng generate component component-name --project ngxs-history-plugin` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngxs-history-plugin`.
-> Note: Don't forget to add `--project ngxs-history-plugin` or else it will be added to the default project in your `angular.json` file. 
+### 1. Install from `NPM`
 
-## Build
+If you use **npm**
 
-Run `ng build ngxs-history-plugin` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
+npm i ngxs-history-plugin
+```
 
-## Publishing
+If you use **yarn**
 
-After building your library with `ng build ngxs-history-plugin`, go to the dist folder `cd dist/ngxs-history-plugin` and run `npm publish`.
+```
+yarn add ngxs-history-plugin
+```
 
-## Running unit tests
+### 2. Import the module in the `app.module`
 
-Run `ng test ngxs-history-plugin` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Import the package module
 
-## Further help
+```
+import { NgxsHistoryModule } from 'ngxs-history-plugin'
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Import the Angular module
+
+```ts
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    NgxsModule.forRoot([], {
+      developmentMode: !environment.production,
+    }),
+    NgxsHistoryModule.forRoot(), // <-- import the module
+  ],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+### 3. Use the `undoable` decorator
+
+Set the `undoable` decorator in the state file for the actions you want to handle.
+
+**Example:**
+
+```ts
+@Action(AddTodo)
+@Undoable(AddTodo) // <-- set the decorator and provide the action to handle
+addTodo(ctx: StateContext<TodoStateModel>, action: AddTodo) {
+  const state = ctx.getState()
+
+  const newItem = {
+    title: action.title,
+  }
+
+  ctx.setState({
+    ...state,
+    items: [...state.items, newItem],
+  })
+}
+
+```
+
+### 4. Dispatch the `undo` action
+
+Import the Undo Action
+
+```ts
+import { NgxsHistoryUndo } from 'ngxs-history-plugin'
+```
+
+Dispatch the action
+
+```ts
+undo() {
+  this.store.dispatch(new NgxsHistoryUndo());
+}
+```
+
+---
+
+**Enjoy :)**
