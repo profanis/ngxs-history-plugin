@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { Actions, Select, Store } from "@ngxs/store";
-import { Observable } from "rxjs";
-import { ShoppingModel } from "./shopping-state.model";
-import { AddProduct, UpdateProduct } from "./shopping.actions";
-import { ShoppingSelectors } from "./shopping.selectors";
+import { Injectable } from '@angular/core';
+import { Actions, Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { ShoppingModel } from './shopping-state.model';
+import { AddProduct, UpdateProduct } from './shopping.actions';
+import { ShoppingSelectors } from './shopping.selectors';
 
 @Injectable()
 export class ShoppingService {

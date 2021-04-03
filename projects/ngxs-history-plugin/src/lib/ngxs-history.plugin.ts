@@ -48,6 +48,7 @@ export class NgxHistoryPlugin implements NgxsPlugin {
       return
     }
     const stateSliceMetadata = currentActionMetadata && ensureStoreMetadata(currentActionMetadata.ctor)
+
     return stateSliceMetadata?.name
   }
 

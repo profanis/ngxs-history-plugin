@@ -23,7 +23,7 @@ module.exports = {
     project: 'tsconfig.json',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', '@typescript-eslint/tslint', 'prettier', 'no-only-tests'],
+  plugins: ['@typescript-eslint', '@typescript-eslint/tslint', 'prettier'],
   rules: {
     'no-only-tests/no-only-tests': 'error',
     '@angular-eslint/component-class-suffix': 'off',
@@ -283,16 +283,6 @@ module.exports = {
     'unicorn/filename-case': 'off',
     'use-isnan': 'error',
     'valid-typeof': 'off',
-    '@typescript-eslint/tslint/config': [
-      'error',
-      {
-        rules: {
-          'import-spacing': true,
-          'no-dynamic-delete': true,
-          'prefer-conditional-expression': true,
-        },
-      },
-    ],
     'comma-dangle': [
       'error',
       {

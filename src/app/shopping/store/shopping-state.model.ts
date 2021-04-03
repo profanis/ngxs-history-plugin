@@ -1,9 +1,9 @@
 export interface ShoppingStateModel {
-  items: ShoppingModel[];
+  items: ShoppingModel[]
 }
 
 export interface ShoppingModel {
-  order: number;
-  title: string;
-  isActive: boolean;
+  order: number
+  title: string
+  isActive: boolean
 }

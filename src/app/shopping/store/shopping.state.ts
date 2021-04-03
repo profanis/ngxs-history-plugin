@@ -1,18 +1,18 @@
-import { Injectable } from "@angular/core";
-import { Action, State, StateContext } from "@ngxs/store";
-import { Undoable } from "ngxs-history-plugin";
-import { ShoppingStateModel } from "./shopping-state.model";
+import { Injectable } from '@angular/core';
+import { Action, State, StateContext } from '@ngxs/store';
+import { Undoable } from 'ngxs-history-plugin';
+import { ShoppingStateModel } from './shopping-state.model';
 import {
   AddProduct,
   ChangeStatus,
   RemoveProduct,
   UpdateProduct,
-} from "./shopping.actions";
+} from './shopping.actions';
 
 const DEFAULT_STATE = { items: [] };
 
 @State<ShoppingStateModel>({
-  name: "shopping",
+  name: 'shopping',
   defaults: DEFAULT_STATE,
 })
 @Injectable()
@@ -27,7 +27,7 @@ export class ShoppingState {
     const newItem = {
       order: state.items.length + 1,
       title: action.title,
-      description: "",
+      description: '',
       isActive: true,
     };
 
