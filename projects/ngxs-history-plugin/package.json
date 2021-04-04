@@ -1,6 +1,23 @@
 {
   "name": "ngxs-history-plugin",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "A plugin that captures the state changes of an angular application which uses ngxs state management library",
+  "keywords": [
+    "ngxs",
+    "history plugin",
+    "ngxs history plugin"
+  ],
+  "homepage": "https://github.com/profanis/ngxs-history-plugin/tree/main/projects/ngxs-history-plugin",
+  "author": {
+    "name": "Fanis Prodromou",
+    "email": "prodromouf@gmail.com",
+    "url": "http://blog.profanis.me/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/profanis/ngxs-history-plugin",
+    "directory": "projects/ngxs-history-plugin"
+  },
   "dependencies": {
     "tslib": "^2.0.0"
   },
