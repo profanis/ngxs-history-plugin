@@ -23,7 +23,7 @@ import { TodoModule } from './todo/todo.module'
       disabled: environment.production,
     }),
     NgxsHistoryModule.forRoot({
-      historyLength: 5,
+      historyLength: 25,
     }),
     NgxsDispatchPluginModule.forRoot(),
     FormsModule,

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { Select, Store } from '@ngxs/store'
-import { NgxsHistoryUndo } from 'ngxs-history-plugin'
 import { Observable } from 'rxjs'
 import { TodoModel } from '../store/todo-state.model'
 import { AddTodo, UpdateTodo } from '../store/todo.actions'
@@ -11,15 +10,12 @@ import { TodoSelectors } from '../store/todo.selectors'
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss'],
 })
-export class TodoComponent implements OnInit {
+export class TodoComponent {
   @Select(TodoSelectors.items)
   items$: Observable<TodoModel[]>
 
   newTitle: string
-  hsaUndo$: Observable<boolean>
   constructor(private store: Store) {}
-
-  ngOnInit(): void {}
 
   add() {
     this.store.dispatch(new AddTodo(this.newTitle))
@@ -28,9 +24,5 @@ export class TodoComponent implements OnInit {
 
   changeDescription(title: string, order: number) {
     this.store.dispatch(new UpdateTodo(order, title))
-  }
-
-  undo() {
-    this.store.dispatch(new NgxsHistoryUndo())
   }
 }
