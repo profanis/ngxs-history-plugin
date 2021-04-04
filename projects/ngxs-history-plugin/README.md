@@ -1,5 +1,9 @@
 # ngxs-history-plugin
 
+> This plugin is designed to work with the [ngxs](https://www.ngxs.io/) state management library.
+
+With this plugin we are able to capture the state changes and revert (_undo_) to the previous state by dispatching an action
+
 ## How to use
 
 1. Install from NPM
@@ -7,7 +11,7 @@
 3. Use the `undoable` decorator
 4. Dispatch the `undo` action
 
-### 1. Install from `NPM`
+### 1. Install from `NPM` registry
 
 If you use **npm**
 
