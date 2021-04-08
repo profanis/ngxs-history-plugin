@@ -12,8 +12,6 @@ const DEFAULT_STATE = { items: [] }
 })
 @Injectable()
 export class TodoState {
-  constructor() {}
-
   @Action(AddTodo)
   @Undoable(AddTodo)
   addTodo(ctx: StateContext<TodoStateModel>, action: AddTodo) {
@@ -23,7 +21,7 @@ export class TodoState {
       order: state.items.length + 1,
       title: action.title,
       description: '',
-      isActive: true,
+      isDone: false,
     }
 
     ctx.setState({
@@ -57,14 +55,15 @@ export class TodoState {
   }
 
   @Action(ChangeStatus)
+  @Undoable(ChangeStatus)
   changeStatus(ctx: StateContext<TodoStateModel>, action: ChangeStatus) {
     const state = ctx.getState()
 
-    const index = state.items.findIndex((it) => it.order === action.order)
+    const foundItem = state.items[action.index]
 
     ctx.setState({
       ...state,
-      items: [...state.items.slice(0, index), { ...state.items[index], isActive: action.status }, ...state.items.slice(index + 1)],
+      items: [...state.items.slice(0, action.index), { ...foundItem, isDone: action.isDone }, ...state.items.slice(action.index + 1)],
     })
   }
 }

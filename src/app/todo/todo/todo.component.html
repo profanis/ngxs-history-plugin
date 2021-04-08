@@ -6,7 +6,16 @@
 <div class="form-inline">
   <ul class="list-group list-group-flush mt-3">
     <li *ngFor="let item of items$ | async; let idx = index" class="list-group-item m-0 p-0">
-      <input type="email" class="form-control mb-1" [ngModel]="item.title" (ngModelChange)="changeDescription($event, item.order)" />
+      <div class="d-flex align-items-center">
+        <input
+          type="email"
+          class="form-control mb-1"
+          [ngModel]="item.title"
+          (ngModelChange)="changeDescription($event, item.order)"
+          [disabled]="item.isDone"
+        />
+        <span [class.check]="!item.isDone" [class.uncheck]="item.isDone" (click)="changeToDoItemStatus(idx, !item.isDone)"></span>
+      </div>
     </li>
   </ul>
 </div>

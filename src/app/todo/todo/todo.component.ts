@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { Select, Store } from '@ngxs/store'
 import { Observable } from 'rxjs'
 import { TodoModel } from '../store/todo-state.model'
-import { AddTodo, UpdateTodo } from '../store/todo.actions'
+import { AddTodo, ChangeStatus, UpdateTodo } from '../store/todo.actions'
 import { TodoSelectors } from '../store/todo.selectors'
 
 @Component({
@@ -24,5 +24,9 @@ export class TodoComponent {
 
   changeDescription(title: string, order: number) {
     this.store.dispatch(new UpdateTodo(order, title))
+  }
+
+  changeToDoItemStatus(index: number, isDone: boolean) {
+    this.store.dispatch(new ChangeStatus(index, isDone))
   }
 }

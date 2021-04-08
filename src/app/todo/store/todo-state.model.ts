@@ -5,5 +5,5 @@ export interface TodoStateModel {
 export interface TodoModel {
   order: number
   title: string
-  isActive: boolean
+  isDone: boolean
 }
