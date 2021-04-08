@@ -49,6 +49,30 @@ Import the Angular module
 export class AppModule {}
 ```
 
+You can optionally use the following `PluginOptions`
+
+| Name          | Type   | Required | Description                                                               |
+| ------------- | ------ | -------- | ------------------------------------------------------------------------- |
+| historyLength | number | no       | the number of elements to keep in the history. Empty means no restriction |
+
+**Example**
+
+```ts
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    NgxsModule.forRoot([], {
+      developmentMode: !environment.production,
+    }),
+    NgxsHistoryModule.forRoot({
+      historyLength: 25, // <-- use the historyLength option
+    }),
+  ],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
 ### 3. Use the `undoable` decorator
 
 Set the `undoable` decorator in the state file for the actions you want to handle.
