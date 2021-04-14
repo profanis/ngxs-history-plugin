@@ -25,7 +25,6 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', '@typescript-eslint/tslint', 'prettier'],
   rules: {
-    'no-only-tests/no-only-tests': 'error',
     '@angular-eslint/component-class-suffix': 'off',
     '@angular-eslint/directive-class-suffix': 'off',
     '@angular-eslint/no-host-metadata-property': 'off',
