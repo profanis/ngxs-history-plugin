@@ -1,8 +1,17 @@
 # ngxs-history-plugin
 
+[![](https://img.shields.io/npm/dm/ngxs-history-plugin.svg?style=flat)](https://npmcharts.com/compare/ngxs-history-plugin?interval=30&minimal=true)
+[![](https://img.shields.io/bundlephobia/min/ngxs-history-plugin)](https://bundlephobia.com/result?p=ngxs-history-plugin)
+
 > This plugin is designed to work with the [ngxs](https://www.ngxs.io/) state management library.
 
 With this plugin we are able to capture the state changes and revert (_undo_) to the previous state by dispatching an action
+
+## Demo
+
+![Demo](../../src/assets/demo.gif)
+
+[Working demo in stackblitz](https://stackblitz.com/edit/angular-ngxs-history-plugin)
 
 ## How to use
 

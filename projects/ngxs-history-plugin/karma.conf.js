@@ -20,6 +20,7 @@ module.exports = function (config) {
       reporters: [
         { type: 'html', subdir: 'report-html' },
         { type: 'lcov', subdir: 'report-lcov' },
+        { type: 'text-summary' },
       ],
     },
     reporters: ['progress', 'kjhtml', 'coverage'],
