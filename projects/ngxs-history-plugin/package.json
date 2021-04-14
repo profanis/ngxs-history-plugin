@@ -1,6 +1,6 @@
 {
   "name": "ngxs-history-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A plugin that captures the state changes of an angular application which uses ngxs state management library",
   "keywords": [
     "ngxs",
