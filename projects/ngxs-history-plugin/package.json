@@ -1,11 +1,12 @@
 {
   "name": "ngxs-history-plugin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A plugin that captures the state changes of an angular application which uses ngxs state management library",
   "keywords": [
     "ngxs",
     "history plugin",
-    "ngxs history plugin"
+    "ngxs history plugin",
+    "ngxs undo"
   ],
   "homepage": "https://github.com/profanis/ngxs-history-plugin/tree/main/projects/ngxs-history-plugin",
   "author": {
