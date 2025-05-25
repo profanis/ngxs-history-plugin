@@ -1,21 +1,23 @@
-import { Component } from '@angular/core'
-import { Select, Store } from '@ngxs/store'
+import { Component, inject } from '@angular/core'
+import { Store } from '@ngxs/store'
 import { Observable } from 'rxjs'
 import { TodoModel } from '../store/todo-state.model'
 import { AddTodo, ChangeStatus, UpdateTodo } from '../store/todo.actions'
 import { TodoSelectors } from '../store/todo.selectors'
+import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss'],
+  imports: [CommonModule, FormsModule],
 })
 export class TodoComponent {
-  @Select(TodoSelectors.items)
-  items$: Observable<TodoModel[]>
+  store = inject(Store)
+  items$: Observable<TodoModel[]> = this.store.select(TodoSelectors.items)
 
   newTitle: string
-  constructor(private store: Store) {}
 
   add() {
     this.store.dispatch(new AddTodo(this.newTitle))

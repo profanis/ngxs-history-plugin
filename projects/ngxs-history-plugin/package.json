@@ -20,11 +20,11 @@
     "directory": "projects/ngxs-history-plugin"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.8.1"
   },
   "peerDependencies": {
-    "@angular/common": "~11.2.3",
-    "@angular/core": "~11.2.3",
-    "@ngxs/store": "^3.7.1"
+    "@angular/common": "^19.2",
+    "@angular/core": "^19.2",
+    "@ngxs/store": "19.0.0"
   }
 }

@@ -17,7 +17,7 @@ const DEFAULT_STATE = { items: [] };
 })
 @Injectable()
 export class ShoppingState {
-  constructor() {}
+  constructor() { }
 
   @Action(AddProduct)
   @Undoable(AddProduct)

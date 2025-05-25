@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
-import { ensureStoreMetadata, getValue, setValue } from '@ngxs/store'
+import { getValue, setValue } from '@ngxs/store'
+import { ɵensureStoreMetadata } from '@ngxs/store/internals'
 import { ActionMetadata } from './models/action-metadata'
 import { actionsToHandle } from './models/decorators'
 import { NgxsHistoryUndo } from './models/ngxs-history.actions'
@@ -20,7 +21,7 @@ export class NgxsHistoryService {
     if (!currentActionMetadata) {
       return
     }
-    const stateSliceMetadata = currentActionMetadata && ensureStoreMetadata(currentActionMetadata.ctor)
+    const stateSliceMetadata = currentActionMetadata && ɵensureStoreMetadata(currentActionMetadata.ctor)
 
     return stateSliceMetadata?.name
   }

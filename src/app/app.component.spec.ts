@@ -1,35 +1,54 @@
-import { TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { TodoComponent } from './todo/todo/todo.component';
+import { ShoppingComponent } from './shopping/shopping/shopping.component';
+import { provideStore, Store } from '@ngxs/store';
+import { ShoppingState } from './shopping/store/shopping.state';
+import { TodoState } from './todo/store/todo.state';
+import { NgxsHistoryUndo } from 'ngxs-history-plugin';
+import { NgxsActionCollectorService, provideNgxsActionCollector } from './services/ngxs-action-collector.service';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+  let store: Store;
+
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-      ],
-      declarations: [
+        TodoComponent,
+        ShoppingComponent,
         AppComponent,
       ],
+      providers: [
+        provideStore([TodoState, ShoppingState]),
+        provideNgxsActionCollector(),
+      ],
     }).compileComponents();
-  }));
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    store = TestBed.inject(Store);
+  });
+
+  const testSetup = () => {
+    const actionCollector = TestBed.inject(NgxsActionCollectorService);
+    const actionsDispatched = actionCollector.dispatched;
+
+    return { actionsDispatched };
+  };
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it('should have as title \'ngxs-todo\'', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('ngxs-todo');
-  });
+  it('should dispatch undo action', () => {
+    const { actionsDispatched } = testSetup();
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('ngxs-todo app is running!');
+    fixture.debugElement.nativeElement.querySelector('.undo').click();
+
+    expect(actionsDispatched.some(action => action instanceof NgxsHistoryUndo)).toBeTruthy();
   });
 });

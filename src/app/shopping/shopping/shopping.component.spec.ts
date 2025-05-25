@@ -1,5 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { ShoppingComponent } from './shopping.component'
+import { provideNgxsActionCollector } from 'src/app/services/ngxs-action-collector.service'
+import { ShoppingState } from '../store/shopping.state'
+import { provideStore } from '@ngxs/store'
+import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'
 
 describe('ShoppingComponent', () => {
   let component: ShoppingComponent
@@ -7,7 +12,15 @@ describe('ShoppingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ShoppingComponent],
+      imports: [
+        CommonModule,
+        FormsModule,
+        ShoppingComponent,
+      ],
+      providers: [
+        provideStore([ShoppingState]),
+        provideNgxsActionCollector(),
+      ],
     }).compileComponents()
   })
 
