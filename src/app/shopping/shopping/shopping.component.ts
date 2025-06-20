@@ -1,21 +1,23 @@
-import { Component } from '@angular/core'
-import { Select, Store } from '@ngxs/store'
+import { Component, inject } from '@angular/core'
+import { Store } from '@ngxs/store'
 import { Observable } from 'rxjs'
 import { ShoppingModel } from '../store/shopping-state.model'
 import { AddProduct, UpdateProduct } from '../store/shopping.actions'
 import { ShoppingSelectors } from '../store/shopping.selectors'
+import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'
 
 @Component({
   selector: 'app-shopping',
   templateUrl: './shopping.component.html',
   styleUrls: ['./shopping.component.scss'],
+  imports: [CommonModule, FormsModule],
 })
 export class ShoppingComponent {
-  @Select(ShoppingSelectors.items)
-  items$: Observable<ShoppingModel[]>
+  private store = inject(Store)
+  items$: Observable<ShoppingModel[]> = this.store.select(ShoppingSelectors.items)
 
   newTitle: string
-  constructor(private store: Store) {}
 
   add() {
     this.store.dispatch(new AddProduct(this.newTitle))
